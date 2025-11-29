@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -21,13 +21,30 @@ jobs:
       - name: Install the dependencies
         run: |
           python -m pip install -r requirements.txt
+        
+      - name: Prepare local pypi (copy wheel(s) into files/pypi)
+        run: |
+          set -eux
+          # ensure source pypi folder exists in the repo and contains your wheel(s)
+          ls -la ./pypi || true
+          mkdir -p files/pypi
+          cp -v ./pypi/*.whl files/pypi/    # fail if no wheel unless you want || true
+          ls -la files/pypi
+      
+      - name: Create pip index for JupyterLite
+        run: |
+          set -eux
+          jupyter lite pip index files/pypi
+          ls -la files/pypi
+          cat files/pypi/index.json | head -n 40
+        
       - name: Build the JupyterLite site
         run: |
-          jupyter lite build --pyodide https://ngsolve.org/files/pyodide-0.26.0/ngsolve_pyodide.tar.bz2
-      - name: Copy lib_rigid_body wheel
-        run: |
-          mkdir -p ./dist/static/pyodide
-          cp ./pypi/* ./dist/static/pyodide
+          set -eux
+          TZ=UTC jupyter lite build --output-dir ./dist --pyodide https://ngsolve.org/files/pyodide-0.26.0/ngsolve_pyodide.tar.bz2
+          ls -la dist
+          test -f dist/index.html
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
