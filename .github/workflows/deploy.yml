@@ -26,9 +26,9 @@ jobs:
         run: |
           set -eux
           # ensure source pypi folder exists in the repo and contains your wheel(s)
-          ls -la ./pypi || true
+          ls -la ./pypi_test || true
           mkdir -p files/pypi
-          cp -v ./pypi/*.whl files/pypi/    # fail if no wheel unless you want || true
+          cp -v ./pypi_test/*.whl files/pypi/    # fail if no wheel unless you want || true
           ls -la files/pypi
           WHL= files/pypi/lib_rigid_body-0.0.1-cp312-cp312-pyodide_2024_0_wasm32.whl unzip -l "$WHL" | sed -n '1,200p'
 
