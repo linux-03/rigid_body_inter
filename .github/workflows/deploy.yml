@@ -48,7 +48,6 @@ jobs:
 
           # ensure jupyter lite pip index CLI is available
           python -m pip show jupyterlite-core || python -m pip install jupyterlite-core
-          python -m pip show jupyterlite-piplite || python -m pip install jupyterlite-piplite
 
           echo "running: python -m jupyter lite pip index files/pypi"
           # run the index command and capture output
