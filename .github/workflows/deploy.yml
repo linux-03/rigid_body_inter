@@ -61,7 +61,7 @@ jobs:
           # use python -m to run jupyter lite via the same interpreter
           TZ=UTC python -m jupyter lite build --output-dir ./dist --pyodide https://ngsolve.org/files/pyodide-0.26.0/ngsolve_pyodide.tar.bz2
 
-          echo "DIST listing:"
+          echo "DIST listing:"  
           ls -la dist || true
           echo "DIST files/pypi listing:"
           ls -la dist/files/pypi || true
