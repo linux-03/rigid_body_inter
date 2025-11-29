@@ -26,6 +26,7 @@ jobs:
           jupyter lite build --pyodide https://ngsolve.org/files/pyodide-0.26.0/ngsolve_pyodide.tar.bz2
       - name: Copy lib_rigid_body wheel
         run: |
+          mkdir -p ./dist/static/pyodide
           cp ./pypi/* ./dist/static/pyodide
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
