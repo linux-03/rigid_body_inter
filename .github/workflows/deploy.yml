@@ -19,7 +19,8 @@ jobs:
 
       - name: Install jupyterlite tool
         run: |
-          python -m pip install --upgrade pip jupyterlite-core
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
       - name: Prepare local pypi and copy wheel(s)
         run: |
