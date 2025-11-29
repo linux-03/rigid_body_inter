@@ -30,7 +30,9 @@ jobs:
           mkdir -p files/pypi
           cp -v ./pypi_test/*.whl files/pypi/    # fail if no wheel unless you want || true
           ls -la files/pypi
-          WHL=files/pypi/lib_rigid_body-0.0.1-cp312-cp312-pyodide_2024_0_wasm32.whl unzip -l "$WHL" | sed -n '1,200p'
+          WHL="files/pypi/lib_rigid_body-0.0.1-cp312-cp312-pyodide_2024_0_wasm32.whl"
+          
+          unzip -l "$WHL" | sed -n '1,200p'
 
           unzip -l "$WHL" | awk '{print $4}' | grep '^lib_rigid_body' || true
 
